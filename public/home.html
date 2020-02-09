@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Get The News</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">Mongo Scraper</a>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/saved">Saved Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-danger scrape-new" id="scrape">SCRAPE NEW ARTICLES!</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-danger clear">CLEAR ARTICLES!</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="jumbotron text-center">
+        <div class="overlay">
+        </div>
+        <div class="background-image">
+        </div>
+        <div class="caption">
+            <h1>Mongo Scraper</h1>
+            <p>New York Times Edition</p>
+        </div>
+    </div>
+
+
+    <div data-_id="5e407dea84cd16001599d7ac" class="card">
+        <div class="card-header">
+            <h3>
+                <a class="article-link" target="_blank" rel="noopener noreferrer"
+                    href="https://www.nytimes.com/2020/02/09/arts/television/saturday-night-live-rupaul.html">Best of
+                    Late Night: ‘S.N.L.’ Takes Aim at the Democratic Debate</a>
+                <a class="btn btn-success save">Save Article</a>
+            </h3>
+        </div>
+        <div class="card-body">Hosted by RuPaul and featuring Justin Bieber as musical guest, this week’s show also had
+            another memorable Oscar segment.</div>
+    </div>
+
+
+
+
+
+    <footer class="footer">
+        <div class="container">
+            <p>New York Times Mongo Scraper</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./assets/app.js"></script>
+
+</body>
+
+</html>
