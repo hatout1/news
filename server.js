@@ -45,31 +45,6 @@ app.use("/", apiRoutes);
 
 
 
-app.get("/scrape", (req, res) => {
-    axios.get("https://www.nytimes.com/section/technology").then(urlencoded => {
-        const $ = cheerio.load(urlencoded.data);
-        $("li.css-ye6x8s").each((i, element) => {
-            const link = $(element)
-                .find('a')
-                .attr("href");
-            const newsTitle = $(element)
-                .find('h2.css-1j9dxys')
-                .text();
-            const newsBody = $(element)
-                .find('p.css-1echdzn')
-                .text()
-            const newsImage = $(element)
-                .find('img.css-11cwn6f')
-                .attr('src')
-            let Link = "https://www.nytimes.com" + link
-            data = { Link, newsTitle, newsBody, newsImage }
-            console.log(data)
-        })
-    })
-
-    console.log("done")
-})
-
 
 
 app.listen(PORT, () => {
