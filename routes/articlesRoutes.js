@@ -31,30 +31,46 @@ router.get("/scrape", (req, res) => {
 
             let entry = new Article(data);
 
-            entry.save((err, doc) => {
-                if (err) {
-                    console.log(err);
-                }
-                // Or log the doc
-                else {
-                    console.log(doc);
+
+            Article.find({
+                title: data.title
+            }).then(articles => {
+                if (articles.length > 0) {
+                    console.log("Every thing is up to date")
+                } else {
+                    entry.save((err, doc) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log(doc);
+                        }
+                    });
                 }
             });
         });
         res.send("Scrape Complete");
     })
-
-
 })
 
-
+// All articles
 router.get("/articles", (req, res) => {
-    Article.find({}, (error, doc) => {
-
+    Article.find({ "saved": false }, (error, doc) => {
         if (error) {
             console.log(error);
         }
+        else {
+            res.json(doc);
+        }
+    });
+});
 
+// All saved articles
+router.get("/savedArticles", (req, res) => {
+    Article.find({ "saved": true }, (error, doc) => {
+        if (error) {
+            console.log(error);
+        }
         else {
             res.json(doc);
         }
@@ -62,18 +78,68 @@ router.get("/articles", (req, res) => {
 });
 
 
-router.post("/article", (req, res) => {
-    db.Article.create({
-        title: data.title,
-        summary: data.summary,
-        link: data.link,
-        picture: data.picture
-    }).then(articles => {
-        res.send(articles);
-        // console.log(articles)
-    });
+// delete All articles
+router.delete("/delete", (req, res) => {
+    Article.remove({ "saved": false }, (error, doc) => {
+        res.send(doc)
+    })
 
 })
+
+router.delete("/deleteAllSavedArticles", (req, res) => {
+    Article.remove({ "saved": true }, (error, doc) => {
+        res.send(doc)
+    })
+
+})
+
+// router.post("/article", (req, res) => {
+//     db.Article.create({
+//         title: data.title,
+//         summary: data.summary,
+//         link: data.link,
+//         picture: data.picture
+//     }).then(articles => {
+//         res.send(articles);
+//         console.log(articles)
+//     });
+
+// })
+
+
+// *************************************************************
+
+// Save an Article
+router.post("/toSave/:id", (req, res) => {
+    Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true }).then(res => {
+        console.log(res)
+    }).catch(err => {
+        if (err) {
+            console.log(err);
+        }
+    });
+});
+
+
+
+// Delete a saved article
+router.post("/deleteSave/:id", (req, res) => {
+    Article.findOneAndUpdate(
+        {
+            "_id": req.params.id
+        },
+        {
+            "saved": false, "notes": []
+        }).then(res => {
+            console.log(res)
+        }).catch(err => {
+            // Log any errors
+            if (err) {
+                console.log(err);
+            }
+        });
+});
+
 
 
 module.exports = router;

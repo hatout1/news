@@ -11,28 +11,68 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">Mongo Scraper</a>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="savedArticles.html">Saved Articles</a>
+                </li>
 
-
-    <nav class="navbar navbar-light bg-secondary">
-        <a class="navbar-brand text-light" href="/">Tasks</a>
+                <li class="nav-item">
+                    <a class="btn btn-danger clear" id="clearSavedArticles">CLEAR SAVED ARTICLES!</a>
+                </li>
+            </ul>
+        </div>
     </nav>
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-4">The Edit Page!</h1>
-            <p class="lead">
-                Add text to the input below then hit "Submit" to modify the todo.
-                Otherwise click "Tasks" on the top left to cancel.
-            </p>
-            <hr />
-            <p>The original todo was:</p>
-            <p id="originalText"></p>
+
+
+    <div class="jumbotron text-center">
+        <div class="overlay">
+        </div>
+        <div class="background-image">
+        </div>
+        <div class="caption">
+            <h1>Mongo Scraper</h1>
+            <p>New York Times Edition</p>
         </div>
     </div>
 
 
+    <div class="container-fluid article-container" id="savedArticlesArea">
+
+    </div>
 
 
 
+    <!-- <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body"><button type="button" class="bootbox-close-button close" data-dismiss="modal"
+                    aria-hidden="true" style="margin-top: -10px;">×</button>
+                <div class="bootbox-body">
+                    <div class="container-fluid text-center">
+                        <h4>Notes For Article: 5e4263e4a7ad9400157d4a98</h4>
+                        <hr>
+                        <ul class="list-group note-container">
+                            <li class="list-group-item">No notes for this article yet.</li>
+                        </ul><textarea placeholder="New Note" rows="4" cols="60"></textarea><button
+                            class="btn btn-success save">Save Note</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <footer class="footer">
+        <div class="container">
+            <p>New York Times Mongo Scraper</p>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

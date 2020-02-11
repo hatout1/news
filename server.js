@@ -8,7 +8,7 @@ const path = require("path");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const colors = require('colors')
+// const colors = require('colors')
 
 const PORT = process.env.PORT || 3018;
 const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost/hw18_wsDB";
@@ -36,10 +36,10 @@ app.set('public', __dirname + '/public');
 
 app.use(logger("dev"))
 
-const savedRoutes = require("./routes/savedRoutes")
-app.use("/saved", savedRoutes)
+const notesRoutes = require("./routes/notesRoutes")
+app.use("/notes", notesRoutes)
 const articlesRoutes = require("./routes/articlesRoutes");
-app.use("/api", articlesRoutes);
+app.use("/articles", articlesRoutes);
 const apiRoutes = require("./routes/apiRoutes");
 app.use("/", apiRoutes);
 
