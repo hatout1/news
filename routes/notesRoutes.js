@@ -1,34 +1,36 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
+const Note = require("../models/Notes");
+const Article = require("../models/Articles")
 
 // Create a new note
-router.post("/notes/save/:id", function (req, res) {
-    // Create a new note and pass the req.body to the entry
-    var newNote = new Note({
+router.post("/save/:id", (req, res) => {
+    const newNote = new Note({
         body: req.body.text,
         article: req.params.id
     });
     console.log(req.body)
-    // And save the new note the db
-    newNote.save(function (error, note) {
-        // Log any errors
+    newNote.save((error, note) => {
         if (error) {
             console.log(error);
         }
-        // Otherwise
         else {
-            // Use the article id to find and update it's notes
-            Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "notes": note } })
-                // Execute the above query
-                .exec(function (err) {
-                    // Log any errors
+            Article.findOneAndUpdate(
+                {
+                    "_id": req.params.id
+                },
+                {
+                    $push: { "notes": note }
+                }).then(res => {
+                    console.log(res)
+                    // res.send(note)
+                })
+                .catch(err => {
                     if (err) {
                         console.log(err);
-                        res.send(err);
                     }
                     else {
-                        // Or send the note to the browser
                         res.send(note);
                     }
                 });
@@ -36,27 +38,41 @@ router.post("/notes/save/:id", function (req, res) {
     });
 });
 
+
+// Get all notes for each article
+router.get("/save/All/:id", (req, res) => {
+    Article.find({ "_id": req.params.article_id }).then(res => {
+        console.log(res)
+    }).catch(err => {
+        if (err) {
+            console.log(err);
+        }
+    });
+});
+
+
+
 // Delete a note
-router.delete("/notes/delete/:note_id/:article_id", function (req, res) {
-    // Use the note id to find and delete it
-    Note.findOneAndRemove({ "_id": req.params.note_id }, function (err) {
-        // Log any errors
+router.delete("/notes/delete/:note_id/:article_id", (req, res) => {
+    Note.findOneAndRemove({ "_id": req.params.note_id }, (err) => {
         if (err) {
             console.log(err);
             res.send(err);
         }
         else {
-            Article.findOneAndUpdate({ "_id": req.params.article_id }, { $pull: { "notes": req.params.note_id } })
-                // Execute the above query
-                .exec(function (err) {
-                    // Log any errors
+            Article.findOneAndUpdate(
+                {
+                    "_id": req.params.article_id
+                },
+                {
+                    $pull: {
+                        "notes": req.params.note_id
+                    }
+                }).then(res => {
+                    console.log(res)
+                }).catch(err => {
                     if (err) {
                         console.log(err);
-                        res.send(err);
-                    }
-                    else {
-                        // Or send the note to the browser
-                        res.send("Note Deleted");
                     }
                 });
         }

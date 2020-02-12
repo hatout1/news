@@ -65,6 +65,54 @@ $(document).ready(function () {
         window.location = "/notes"
     })
 
+    $(document).on('click', ".notes", (e) => {
+        e.preventDefault();
+        console.log('clicked');
+        const article_id = $(e.target).attr("data-id")
+
+        $('.bootbox-body').append(`
+        <div class="container-fluid text-center">
+            <h4>Notes For Article:</h4>
+            <h6>
+            ${article_id}
+            </h6>
+            <hr>
+                <ul class="list-group note-container">
+                    <li class="list-group-item note">Hard coding for test!!!! 
+                    <button class="btn btn-danger note-delete">x</button>
+                    </li>
+                            </ul>
+                <textarea placeholder="Add New Note" rows="4" cols="60"></textarea>
+                <button class="btn btn-success saveNotes" data-id="${article_id}">Save Note !</button>
+                        </div>`)
+
+    })
+
+    $(document).on('click', '.saveNotes', (e) => {
+        e.preventDefault();
+        let text = $('textarea').val();
+        const id = $(e.target).attr("data-id");
+        console.log(id)
+
+        $.ajax({
+            method: "POST",
+            url: 'notes/save/' + id,
+            data: text
+        }).then(res => {
+            res.send()
+        })
+
+        $.ajax({
+            method: "GET",
+            url: 'notes/save/All/' + id,
+        }).then(res => {
+            console.log(res)
+            // res.send()
+        })
+
+
+    })
+
 
 
     showArticles()
@@ -137,7 +185,7 @@ const showSavedArticles = () => {
                                     <h3>
                                     <a class="article-link" target="_blank" rel="noopener noreferrer" href="${res.link}">${res.title}</a>
                                     <a class="btn btn-danger delete" data-id="${res._id}" id="deleteFromSaved">Delete From Saved</a>
-                                    <a class="btn btn-info notes">Article Notes</a>
+                                    <a><button class="btn btn-info notes" data-toggle="modal" data-target="#notesModal" data-id="${res._id}">Article Notes!</button></a>
                                 </h3>
                                     </div>
                                     <div class="card-body">${res.summary}
@@ -151,7 +199,7 @@ const showSavedArticles = () => {
                             <h3>
                                 <a class="article-link" target="_blank" rel="noopener noreferrer" href="${res.link}">${res.title}</a>
                                 <a class="btn btn-danger delete" data-id="${res._id}" id="deleteFromSaved">Delete From Saved</a>
-                                <a class="btn btn-info notes">Article Notes</a>
+                                <a class="btn btn-info notes" data-toggle="modal" data-target="#notesModal" data-id="${res._id}">Article Notes</a>
                             </h3>
                         </div>
                         <div class="card-body">${res.summary}</div>

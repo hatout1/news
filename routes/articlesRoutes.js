@@ -93,21 +93,6 @@ router.delete("/deleteAllSavedArticles", (req, res) => {
 
 })
 
-// router.post("/article", (req, res) => {
-//     db.Article.create({
-//         title: data.title,
-//         summary: data.summary,
-//         link: data.link,
-//         picture: data.picture
-//     }).then(articles => {
-//         res.send(articles);
-//         console.log(articles)
-//     });
-
-// })
-
-
-// *************************************************************
 
 // Save an Article
 router.post("/toSave/:id", (req, res) => {
