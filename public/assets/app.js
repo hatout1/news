@@ -70,6 +70,8 @@ $(document).ready(function () {
         console.log('clicked');
         const article_id = $(e.target).attr("data-id")
 
+        $('.bootbox-body').empty();
+
         $('.bootbox-body').append(`
         <div class="container-fluid text-center">
             <h4>Notes For Article:</h4>
@@ -101,6 +103,7 @@ $(document).ready(function () {
 
 
     })
+
 
     $(document).on('click', '.saveNotes', (e) => {
         e.preventDefault();
