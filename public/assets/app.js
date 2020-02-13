@@ -78,9 +78,7 @@ $(document).ready(function () {
             </h6>
             <hr>
                 <ul class="list-group note-container">
-                    <li class="list-group-item note">Hard coding for test!!!! 
-                    <button class="btn btn-danger note-delete">x</button>
-                    </li>
+                    
                             </ul>
                 <textarea placeholder="Add New Note" rows="4" cols="60"></textarea>
                 <button class="btn btn-success saveNotes" data-id="${article_id}" data-dismiss="modal">Save Note !</button>
@@ -90,7 +88,15 @@ $(document).ready(function () {
             method: "GET",
             url: 'notes/save/All/' + article_id,
         }).then(res => {
-            console.log("notes for this article:  " + res)
+            res.map(notes => {
+                console.log(notes)
+
+                $('.note-container').append(`<li class="list-group-item note">${notes.body} 
+                <button class="btn btn-danger note-delete" data-id="${notes.article}">x</button>
+                </li>`)
+
+            })
+
         })
 
 
