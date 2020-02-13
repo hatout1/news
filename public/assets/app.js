@@ -83,8 +83,16 @@ $(document).ready(function () {
                     </li>
                             </ul>
                 <textarea placeholder="Add New Note" rows="4" cols="60"></textarea>
-                <button class="btn btn-success saveNotes" data-id="${article_id}">Save Note !</button>
+                <button class="btn btn-success saveNotes" data-id="${article_id}" data-dismiss="modal">Save Note !</button>
                         </div>`)
+
+        $.ajax({
+            method: "GET",
+            url: 'notes/save/All/' + article_id,
+        }).then(res => {
+            console.log("notes for this article:  " + res)
+        })
+
 
     })
 
@@ -97,18 +105,18 @@ $(document).ready(function () {
         $.ajax({
             method: "POST",
             url: 'notes/save/' + id,
-            data: text
-        }).then(res => {
-            res.send()
-        })
-
-        $.ajax({
-            method: "GET",
-            url: 'notes/save/All/' + id,
+            data: { text }
         }).then(res => {
             console.log(res)
-            // res.send()
         })
+
+        // $.ajax({
+        //     method: "GET",
+        //     url: 'notes/save/All/' + id,
+        // }).then(res => {
+        //     console.log(res)
+        //     // res.send()
+        // })
 
 
     })

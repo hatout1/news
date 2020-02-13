@@ -10,7 +10,9 @@ router.post("/save/:id", (req, res) => {
         body: req.body.text,
         article: req.params.id
     });
-    console.log(req.body)
+    console.log("line 13" + req.body.text)
+    console.log("line 14" + newNote)
+
     newNote.save((error, note) => {
         if (error) {
             console.log(error);
@@ -22,9 +24,9 @@ router.post("/save/:id", (req, res) => {
                 },
                 {
                     $push: { "notes": note }
-                }).then(res => {
-                    console.log(res)
-                    // res.send(note)
+                }).then(article => {
+                    // console.log(res)
+                    res.send({ article, note })
                 })
                 .catch(err => {
                     if (err) {
@@ -40,13 +42,14 @@ router.post("/save/:id", (req, res) => {
 
 
 // Get all notes for each article
-router.get("/save/All/:id", (req, res) => {
-    Article.find({ "_id": req.params.article_id }).then(res => {
-        console.log(res)
+router.get("/save/All/:article_id", (req, res) => {
+    console.log("fetch notes: " + req.params.article_id)
+    Note.find({ "article": req.params.article_id }).then(notes => {
+        console.log("notes fetched: " + notes)
+        res.send(notes)
     }).catch(err => {
-        if (err) {
-            console.log(err);
-        }
+        console.log("err fetching notes: " + err)
+        res.send(err)
     });
 });
 
