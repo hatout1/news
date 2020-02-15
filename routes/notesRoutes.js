@@ -56,7 +56,7 @@ router.get("/save/All/:article_id", (req, res) => {
 
 
 // Delete a note
-router.delete("/notes/delete/:note_id/:article_id", (req, res) => {
+router.delete("/delete/:note_id/:article_id", (req, res) => {
     Note.findOneAndRemove({ "_id": req.params.note_id }, (err) => {
         if (err) {
             console.log(err);

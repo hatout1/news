@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     $("#scrape").on("click", (e) => {
-        console.log("clicked")
         e.preventDefault();
         $.ajax({
             method: "GET",
@@ -83,7 +82,7 @@ $(document).ready(function () {
                     
                             </ul>
                 <textarea placeholder="Add New Note" rows="4" cols="60"></textarea>
-                <button class="btn btn-success saveNotes" data-id="${article_id}" data-dismiss="modal">Save Note !</button>
+                <button class="btn btn-success saveNotes"  data-id="${article_id}" data-dismiss="modal">Save Note !</button>
                         </div>`)
 
         $.ajax({
@@ -94,7 +93,7 @@ $(document).ready(function () {
                 console.log(notes)
 
                 $('.note-container').append(`<li class="list-group-item note">${notes.body} 
-                <button class="btn btn-danger note-delete" data-id="${notes.article}">x</button>
+                <button class="btn btn-danger note-delete" article-id="${article_id}" data-id="${notes._id}">x</button>
                 </li>`)
 
             })
@@ -118,20 +117,24 @@ $(document).ready(function () {
         }).then(res => {
             console.log(res)
         })
-
-        // $.ajax({
-        //     method: "GET",
-        //     url: 'notes/save/All/' + id,
-        // }).then(res => {
-        //     console.log(res)
-        //     // res.send()
-        // })
-
-
     })
 
+    $(document).on("click", '.note-delete', (e) => {
+        e.preventDefault()
+        console.log('note-delete clicked')
+        const note_id = $(e.target).attr("data-id");
+        console.log('note_id: ' + note_id)
+        const article_id = $(e.target).attr('article-id');
+        console.log('article_id' + article_id)
 
+        $.ajax({
+            method: "DELETE",
+            url: "notes/delete/" + note_id + "/" + article_id
+        })
 
+        window.location = "/notes"
+
+    })
     showArticles()
     showSavedArticles()
 })
